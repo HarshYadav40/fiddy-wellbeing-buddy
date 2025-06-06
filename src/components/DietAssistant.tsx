@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Loader2, Utensils, ShoppingCart, Calendar, Droplets } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const DietAssistant = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +19,7 @@ const DietAssistant = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [dietPlan, setDietPlan] = useState(null);
+  const [chartData, setChartData] = useState(null);
   const { toast } = useToast();
 
   const dietTypes = ['Vegetarian', 'Non-Vegetarian', 'Vegan'];
@@ -24,13 +27,41 @@ const DietAssistant = () => {
   const fitnessGoals = ['Muscle gain', 'Weight loss', 'Skin glow', 'General health', 'Energy boost'];
   const workoutTypes = ['Strength', 'Yoga', 'Cardio', 'Mixed'];
 
-  const handleAllergyChange = (allergy: string, checked: boolean) => {
+  const handleAllergyChange = (allergy: string, checked: boolean | string) => {
+    const isChecked = checked === true;
     setFormData(prev => ({
       ...prev,
-      allergies: checked
+      allergies: isChecked
         ? [...prev.allergies, allergy]
         : prev.allergies.filter(a => a !== allergy)
     }));
+  };
+
+  const generateMockChartData = () => {
+    return {
+      macros: [
+        { name: 'Carbs', value: 45, color: '#8884d8' },
+        { name: 'Protein', value: 30, color: '#82ca9d' },
+        { name: 'Fats', value: 25, color: '#ffc658' }
+      ],
+      weeklyCalories: [
+        { day: 'Mon', calories: 2200, protein: 150, carbs: 250, fats: 80 },
+        { day: 'Tue', calories: 2150, protein: 145, carbs: 240, fats: 75 },
+        { day: 'Wed', calories: 2300, protein: 160, carbs: 260, fats: 85 },
+        { day: 'Thu', calories: 2180, protein: 155, carbs: 245, fats: 78 },
+        { day: 'Fri', calories: 2250, protein: 158, carbs: 255, fats: 82 },
+        { day: 'Sat', calories: 2400, protein: 165, carbs: 270, fats: 90 },
+        { day: 'Sun', calories: 2100, protein: 140, carbs: 235, fats: 72 }
+      ],
+      hydration: [
+        { time: '6AM', glasses: 2 },
+        { time: '9AM', glasses: 3 },
+        { time: '12PM', glasses: 5 },
+        { time: '3PM', glasses: 7 },
+        { time: '6PM', glasses: 8 },
+        { time: '9PM', glasses: 10 }
+      ]
+    };
   };
 
   const generateDietPlan = async () => {
@@ -52,14 +83,14 @@ const DietAssistant = () => {
       Fitness Goal: ${formData.fitnessGoal}
       Workout Type: ${formData.workoutType}
       
-      Please provide:
-      1. A 7-day meal plan with breakfast, lunch, dinner, and 2 snacks
-      2. Grocery shopping list
-      3. Hydration recommendations
-      4. Supplement suggestions
-      5. Macro breakdown for each day
+      Please provide a structured response with:
+      1. Daily meal suggestions (breakfast, lunch, dinner, snacks)
+      2. Weekly grocery shopping list
+      3. Hydration guidelines
+      4. Supplement recommendations
+      5. Key nutritional tips
       
-      Format the response in a structured, easy-to-read manner.`;
+      Keep the response clean and organized without markdown formatting.`;
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAYmEj1tHJMiRm7lMsQbJ83Tf3IfkkY0Fg`, {
         method: 'POST',
@@ -83,6 +114,8 @@ const DietAssistant = () => {
       const planText = data.candidates[0].content.parts[0].text;
       
       setDietPlan(planText);
+      setChartData(generateMockChartData());
+      
       toast({
         title: "Diet Plan Generated! 🥗",
         description: "Your personalized nutrition plan is ready!",
@@ -100,7 +133,7 @@ const DietAssistant = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mb-4">
@@ -203,38 +236,94 @@ const DietAssistant = () => {
         </CardContent>
       </Card>
 
-      {/* Diet Plan Results */}
-      {dietPlan && (
-        <Card className="border-0 gentle-shadow bg-white">
-          <CardHeader>
-            <CardTitle className="text-green-700 flex items-center">
-              <Calendar className="w-5 h-5 mr-2" />
-              Your Personalized Diet Plan
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="prose max-w-none">
-              <pre className="whitespace-pre-wrap text-sm text-gray-700 leading-relaxed">
-                {dietPlan}
-              </pre>
-            </div>
-            
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Badge variant="secondary" className="bg-green-100 text-green-700">
-                <Droplets className="w-3 h-3 mr-1" />
-                Hydration Included
-              </Badge>
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-                <ShoppingCart className="w-3 h-3 mr-1" />
-                Grocery List Ready
-              </Badge>
-              <Badge variant="secondary" className="bg-purple-100 text-purple-700">
-                <Utensils className="w-3 h-3 mr-1" />
-                7-Day Meal Plan
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Diet Plan Results with Charts */}
+      {dietPlan && chartData && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Macro Distribution Chart */}
+          <Card className="border-0 gentle-shadow bg-white">
+            <CardHeader>
+              <CardTitle className="text-green-700">Macro Distribution</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={{
+                carbs: { label: "Carbs", color: "#8884d8" },
+                protein: { label: "Protein", color: "#82ca9d" },
+                fats: { label: "Fats", color: "#ffc658" }
+              }}>
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={chartData.macros}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={80}
+                      dataKey="value"
+                    >
+                      {chartData.macros.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          {/* Weekly Calories Chart */}
+          <Card className="border-0 gentle-shadow bg-white">
+            <CardHeader>
+              <CardTitle className="text-green-700">Weekly Calorie Target</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={{
+                calories: { label: "Calories", color: "#8884d8" }
+              }}>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={chartData.weeklyCalories}>
+                    <XAxis dataKey="day" />
+                    <YAxis />
+                    <Bar dataKey="calories" fill="#8884d8" />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          {/* Diet Plan Text */}
+          <Card className="border-0 gentle-shadow bg-white lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="text-green-700 flex items-center">
+                <Calendar className="w-5 h-5 mr-2" />
+                Your Personalized Diet Plan
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose max-w-none">
+                <div className="whitespace-pre-wrap text-sm text-gray-700 leading-relaxed bg-green-50 p-4 rounded-lg">
+                  {dietPlan}
+                </div>
+              </div>
+              
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-green-100 text-green-700">
+                  <Droplets className="w-3 h-3 mr-1" />
+                  Hydration Included
+                </Badge>
+                <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                  <ShoppingCart className="w-3 h-3 mr-1" />
+                  Grocery List Ready
+                </Badge>
+                <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+                  <Utensils className="w-3 h-3 mr-1" />
+                  7-Day Meal Plan
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
     </div>
   );
