@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -131,6 +130,58 @@ const WorkoutPlanner = () => {
     }
   };
 
+  // Show loading overlay if generating plan
+  if (isLoading) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
+          <div className="relative">
+            {/* Muscular figure doing deadlift */}
+            <div className="relative w-24 h-32">
+              {/* Head */}
+              <div className="w-6 h-6 bg-amber-200 rounded-full mx-auto mb-1"></div>
+              
+              {/* Body */}
+              <div className="w-8 h-12 bg-blue-600 rounded-lg mx-auto mb-1"></div>
+              
+              {/* Arms (animated) */}
+              <div className="absolute top-8 left-2 w-1 h-8 bg-amber-200 rounded-full origin-top animate-pulse transform rotate-12"></div>
+              <div className="absolute top-8 right-2 w-1 h-8 bg-amber-200 rounded-full origin-top animate-pulse transform -rotate-12"></div>
+              
+              {/* Legs */}
+              <div className="flex justify-center space-x-1">
+                <div className="w-2 h-8 bg-blue-800 rounded-lg"></div>
+                <div className="w-2 h-8 bg-blue-800 rounded-lg"></div>
+              </div>
+            </div>
+            
+            {/* Barbell (animated) */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-bounce" style={{animationDuration: '1.5s'}}>
+              <div className="w-20 h-1 bg-gray-700 rounded-full"></div>
+              <div className="absolute -left-2 -top-1 w-4 h-3 bg-gray-800 rounded"></div>
+              <div className="absolute -right-2 -top-1 w-4 h-3 bg-gray-800 rounded"></div>
+            </div>
+            
+            {/* Sweat drops */}
+            <div className="absolute top-6 left-8 w-1 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <div className="absolute top-4 right-8 w-1 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          </div>
+          
+          <div className="text-center">
+            <h3 className="text-2xl font-semibold text-blue-700 mb-2">Training</h3>
+            <p className="text-gray-600">Pumping up your perfect workout plan...</p>
+          </div>
+          
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
@@ -223,14 +274,7 @@ const WorkoutPlanner = () => {
             disabled={isLoading}
             className="w-full bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white border-0"
           >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Creating Your Plan...
-              </>
-            ) : (
-              'Generate My Workout Plan'
-            )}
+            Generate My Workout Plan
           </Button>
         </CardContent>
       </Card>
