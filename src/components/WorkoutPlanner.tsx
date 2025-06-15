@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -137,82 +136,12 @@ const WorkoutPlanner = () => {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-8">
           <div className="relative">
-            {/* Muscular figure doing bicep flexes */}
-            <div className="relative w-24 h-40">
-              {/* Head */}
-              <div className="w-8 h-8 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full mx-auto mb-2 relative">
-                <div className="absolute top-2 left-2 w-1 h-1 bg-gray-800 rounded-full"></div>
-                <div className="absolute top-2 right-2 w-1 h-1 bg-gray-800 rounded-full"></div>
-                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-gray-700 rounded"></div>
-              </div>
-              
-              {/* Hair */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-4 bg-gradient-to-b from-amber-800 to-amber-700 rounded-t-full"></div>
-              
-              {/* Muscular torso */}
-              <div className="w-16 h-20 bg-gradient-to-b from-gray-600 to-gray-700 rounded-lg mx-auto mb-2 relative">
-                {/* Tank top straps */}
-                <div className="absolute top-0 left-2 w-2 h-16 bg-gray-800 rounded"></div>
-                <div className="absolute top-0 right-2 w-2 h-16 bg-gray-800 rounded"></div>
-                {/* Chest muscles definition */}
-                <div className="absolute top-4 left-3 w-3 h-4 bg-gray-500 rounded opacity-70"></div>
-                <div className="absolute top-4 right-3 w-3 h-4 bg-gray-500 rounded opacity-70"></div>
-                {/* Abs definition */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-500 rounded opacity-50"></div>
-              </div>
-              
-              {/* Flexing arms - animated */}
-              <div className="absolute top-12 left-0 w-4 h-12 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full origin-bottom transform -rotate-45 animate-pulse">
-                {/* Bicep bulge */}
-                <div className="absolute top-2 left-1 w-3 h-4 bg-amber-100 rounded-full animate-pulse"></div>
-              </div>
-              <div className="absolute top-12 right-0 w-4 h-12 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full origin-bottom transform rotate-45 animate-pulse">
-                {/* Bicep bulge */}
-                <div className="absolute top-2 right-1 w-3 h-4 bg-amber-100 rounded-full animate-pulse"></div>
-              </div>
-              
-              {/* Dumbbells in hands */}
-              <div className="absolute top-8 -left-2 w-6 h-2 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full animate-bounce" style={{animationDuration: '1.5s'}}>
-                <div className="absolute -left-1 -top-0.5 w-2 h-3 bg-gray-900 rounded"></div>
-                <div className="absolute -right-1 -top-0.5 w-2 h-3 bg-gray-900 rounded"></div>
-              </div>
-              <div className="absolute top-8 -right-2 w-6 h-2 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full animate-bounce" style={{animationDuration: '1.5s', animationDelay: '0.3s'}}>
-                <div className="absolute -left-1 -top-0.5 w-2 h-3 bg-gray-900 rounded"></div>
-                <div className="absolute -right-1 -top-0.5 w-2 h-3 bg-gray-900 rounded"></div>
-              </div>
-              
-              {/* Muscular legs */}
-              <div className="flex justify-center space-x-2">
-                <div className="w-4 h-16 bg-gradient-to-b from-gray-800 to-gray-900 rounded-lg relative">
-                  <div className="absolute top-3 left-0 w-2 h-6 bg-gray-700 rounded opacity-60"></div>
-                </div>
-                <div className="w-4 h-16 bg-gradient-to-b from-gray-800 to-gray-900 rounded-lg relative">
-                  <div className="absolute top-3 right-0 w-2 h-6 bg-gray-700 rounded opacity-60"></div>
-                </div>
-              </div>
-              
-              {/* Sweat drops */}
-              <div className="absolute top-10 left-8 w-1 h-2 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse"></div>
-              <div className="absolute top-8 right-8 w-1 h-2 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.8s'}}></div>
-              <div className="absolute top-14 left-10 w-0.5 h-1 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse" style={{animationDelay: '1.2s'}}></div>
-            </div>
-            
-            {/* Muscle flex indicators */}
-            <div className="absolute -left-8 top-12 flex flex-col space-y-1">
-              <div className="w-6 h-1 bg-red-500 rounded animate-pulse"></div>
-              <div className="w-4 h-1 bg-orange-500 rounded animate-pulse" style={{animationDelay: '0.3s'}}></div>
-              <div className="w-2 h-1 bg-yellow-500 rounded animate-pulse" style={{animationDelay: '0.6s'}}></div>
-            </div>
-            <div className="absolute -right-8 top-12 flex flex-col space-y-1">
-              <div className="w-6 h-1 bg-red-500 rounded animate-pulse"></div>
-              <div className="w-4 h-1 bg-orange-500 rounded animate-pulse" style={{animationDelay: '0.3s'}}></div>
-              <div className="w-2 h-1 bg-yellow-500 rounded animate-pulse" style={{animationDelay: '0.6s'}}></div>
-            </div>
+            <Dumbbell className="w-24 h-24 text-blue-600 animate-spin" />
           </div>
           
           <div className="text-center space-y-2">
             <h3 className="text-3xl font-bold text-blue-700">Building Your Workout</h3>
-            <p className="text-gray-600 text-lg">Flexing up the perfect training routine...</p>
+            <p className="text-gray-600 text-lg">Creating your perfect training routine...</p>
           </div>
           
           <div className="flex space-x-2">
