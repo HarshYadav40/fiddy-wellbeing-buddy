@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -132,6 +131,50 @@ const DietAssistant = () => {
     }
   };
 
+  // Show loading overlay if generating plan
+  if (isLoading) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
+          <div className="relative">
+            {/* Cooking pot */}
+            <div className="w-32 h-24 bg-gray-800 rounded-b-full relative">
+              {/* Pot handles */}
+              <div className="absolute -left-4 top-2 w-8 h-4 border-4 border-gray-700 rounded-full border-r-transparent"></div>
+              <div className="absolute -right-4 top-2 w-8 h-4 border-4 border-gray-700 rounded-full border-l-transparent"></div>
+              
+              {/* Steam */}
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                <div className="flex space-x-1">
+                  <div className="w-1 h-8 bg-gray-300 rounded-full opacity-60 animate-pulse"></div>
+                  <div className="w-1 h-6 bg-gray-300 rounded-full opacity-40 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="w-1 h-10 bg-gray-300 rounded-full opacity-50 animate-pulse" style={{animationDelay: '1s'}}></div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Animated spatula */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 origin-bottom animate-spin" style={{animationDuration: '2s'}}>
+              <div className="w-1 h-16 bg-amber-600 rounded-full"></div>
+              <div className="w-6 h-3 bg-amber-700 rounded-full -mt-1"></div>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <h3 className="text-2xl font-semibold text-green-700 mb-2">Preparing</h3>
+            <p className="text-gray-600">Cooking up your perfect diet plan...</p>
+          </div>
+          
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
@@ -224,14 +267,7 @@ const DietAssistant = () => {
             disabled={isLoading}
             className="w-full bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white border-0"
           >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Creating Your Plan...
-              </>
-            ) : (
-              'Generate My Diet Plan'
-            )}
+            Generate My Diet Plan
           </Button>
         </CardContent>
       </Card>
