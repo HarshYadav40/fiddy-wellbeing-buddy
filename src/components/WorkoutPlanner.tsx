@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -134,48 +135,82 @@ const WorkoutPlanner = () => {
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-8">
           <div className="relative">
-            {/* Muscular figure doing deadlift */}
-            <div className="relative w-24 h-32">
-              {/* Head */}
-              <div className="w-6 h-6 bg-amber-200 rounded-full mx-auto mb-1"></div>
-              
-              {/* Body */}
-              <div className="w-8 h-12 bg-blue-600 rounded-lg mx-auto mb-1"></div>
-              
-              {/* Arms (animated) */}
-              <div className="absolute top-8 left-2 w-1 h-8 bg-amber-200 rounded-full origin-top animate-pulse transform rotate-12"></div>
-              <div className="absolute top-8 right-2 w-1 h-8 bg-amber-200 rounded-full origin-top animate-pulse transform -rotate-12"></div>
-              
-              {/* Legs */}
-              <div className="flex justify-center space-x-1">
-                <div className="w-2 h-8 bg-blue-800 rounded-lg"></div>
-                <div className="w-2 h-8 bg-blue-800 rounded-lg"></div>
+            {/* Gym environment */}
+            <div className="relative">
+              {/* Muscular figure */}
+              <div className="relative w-20 h-32">
+                {/* Head */}
+                <div className="w-7 h-7 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full mx-auto mb-1 relative">
+                  <div className="absolute top-1 left-1 w-1 h-1 bg-gray-800 rounded-full"></div>
+                  <div className="absolute top-1 right-1 w-1 h-1 bg-gray-800 rounded-full"></div>
+                </div>
+                
+                {/* Muscular torso */}
+                <div className="w-12 h-16 bg-gradient-to-b from-blue-600 to-blue-700 rounded-lg mx-auto mb-1 relative">
+                  {/* Chest muscles definition */}
+                  <div className="absolute top-2 left-2 w-2 h-3 bg-blue-500 rounded opacity-50"></div>
+                  <div className="absolute top-2 right-2 w-2 h-3 bg-blue-500 rounded opacity-50"></div>
+                  {/* Abs */}
+                  <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded opacity-30"></div>
+                </div>
+                
+                {/* Muscular arms doing deadlift */}
+                <div className="absolute top-8 left-0 w-2 h-10 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full origin-top transform -rotate-12 animate-pulse"></div>
+                <div className="absolute top-8 right-0 w-2 h-10 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full origin-top transform rotate-12 animate-pulse"></div>
+                
+                {/* Muscular legs */}
+                <div className="flex justify-center space-x-1">
+                  <div className="w-3 h-12 bg-gradient-to-b from-blue-800 to-blue-900 rounded-lg relative">
+                    <div className="absolute top-2 left-0 w-1 h-4 bg-blue-700 rounded opacity-50"></div>
+                  </div>
+                  <div className="w-3 h-12 bg-gradient-to-b from-blue-800 to-blue-900 rounded-lg relative">
+                    <div className="absolute top-2 right-0 w-1 h-4 bg-blue-700 rounded opacity-50"></div>
+                  </div>
+                </div>
               </div>
+              
+              {/* Olympic barbell with weights */}
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 animate-bounce" style={{animationDuration: '2s'}}>
+                {/* Weight plates */}
+                <div className="absolute -left-6 -top-2 w-5 h-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded border border-gray-600"></div>
+                <div className="absolute -right-6 -top-2 w-5 h-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded border border-gray-600"></div>
+                
+                {/* Barbell bar */}
+                <div className="w-24 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-600 rounded-full relative">
+                  {/* Grip marks */}
+                  <div className="absolute left-6 top-0 w-0.5 h-1 bg-gray-400"></div>
+                  <div className="absolute right-6 top-0 w-0.5 h-1 bg-gray-400"></div>
+                </div>
+              </div>
+              
+              {/* Sweat drops */}
+              <div className="absolute top-6 left-6 w-1 h-2 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse"></div>
+              <div className="absolute top-4 right-6 w-1 h-2 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              <div className="absolute top-8 left-10 w-0.5 h-1 bg-gradient-to-b from-blue-300 to-blue-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+              
+              {/* Gym floor */}
+              <div className="absolute -bottom-2 -left-8 w-36 h-2 bg-gradient-to-r from-gray-400 to-gray-500 rounded opacity-30"></div>
             </div>
             
-            {/* Barbell (animated) */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-bounce" style={{animationDuration: '1.5s'}}>
-              <div className="w-20 h-1 bg-gray-700 rounded-full"></div>
-              <div className="absolute -left-2 -top-1 w-4 h-3 bg-gray-800 rounded"></div>
-              <div className="absolute -right-2 -top-1 w-4 h-3 bg-gray-800 rounded"></div>
+            {/* Strength indicators */}
+            <div className="absolute -left-12 top-8 flex flex-col space-y-1">
+              <div className="w-8 h-1 bg-red-500 rounded animate-pulse"></div>
+              <div className="w-6 h-1 bg-orange-500 rounded animate-pulse" style={{animationDelay: '0.3s'}}></div>
+              <div className="w-4 h-1 bg-yellow-500 rounded animate-pulse" style={{animationDelay: '0.6s'}}></div>
             </div>
-            
-            {/* Sweat drops */}
-            <div className="absolute top-6 left-8 w-1 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-            <div className="absolute top-4 right-8 w-1 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
           </div>
           
-          <div className="text-center">
-            <h3 className="text-2xl font-semibold text-blue-700 mb-2">Training</h3>
-            <p className="text-gray-600">Pumping up your perfect workout plan...</p>
+          <div className="text-center space-y-2">
+            <h3 className="text-3xl font-bold text-blue-700">Building Your Workout</h3>
+            <p className="text-gray-600 text-lg">Crafting the perfect training routine...</p>
           </div>
           
-          <div className="flex space-x-1">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
           </div>
         </div>
       </div>

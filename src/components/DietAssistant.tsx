@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -135,40 +136,66 @@ const DietAssistant = () => {
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-8">
           <div className="relative">
-            {/* Cooking pot */}
-            <div className="w-32 h-24 bg-gray-800 rounded-b-full relative">
-              {/* Pot handles */}
-              <div className="absolute -left-4 top-2 w-8 h-4 border-4 border-gray-700 rounded-full border-r-transparent"></div>
-              <div className="absolute -right-4 top-2 w-8 h-4 border-4 border-gray-700 rounded-full border-l-transparent"></div>
+            {/* Chef's hat */}
+            <div className="relative mb-4">
+              <div className="w-16 h-12 bg-white rounded-t-full border-2 border-gray-200 relative">
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-6 bg-white rounded-full"></div>
+              </div>
+              <div className="w-20 h-4 bg-white rounded-full border-2 border-gray-200 -mt-2"></div>
+            </div>
+            
+            {/* Cooking pot with animated steam */}
+            <div className="relative">
+              <div className="w-24 h-16 bg-gradient-to-b from-gray-300 to-gray-400 rounded-b-3xl relative border-4 border-gray-500">
+                {/* Pot handles */}
+                <div className="absolute -left-3 top-2 w-6 h-3 border-3 border-gray-500 rounded-full border-r-transparent"></div>
+                <div className="absolute -right-3 top-2 w-6 h-3 border-3 border-gray-500 rounded-full border-l-transparent"></div>
+                
+                {/* Bubbling effect inside pot */}
+                <div className="absolute inset-2 bg-orange-200 rounded-b-2xl overflow-hidden">
+                  <div className="absolute bottom-0 left-2 w-2 h-2 bg-orange-300 rounded-full animate-bounce"></div>
+                  <div className="absolute bottom-1 right-3 w-1 h-1 bg-orange-400 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></div>
+                  <div className="absolute bottom-0 left-1/2 w-1 h-1 bg-orange-300 rounded-full animate-bounce" style={{animationDelay: '0.6s'}}></div>
+                </div>
+              </div>
               
-              {/* Steam */}
-              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+              {/* Animated steam clouds */}
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                 <div className="flex space-x-1">
-                  <div className="w-1 h-8 bg-gray-300 rounded-full opacity-60 animate-pulse"></div>
-                  <div className="w-1 h-6 bg-gray-300 rounded-full opacity-40 animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                  <div className="w-1 h-10 bg-gray-300 rounded-full opacity-50 animate-pulse" style={{animationDelay: '1s'}}></div>
+                  <div className="w-3 h-6 bg-gradient-to-t from-gray-200 to-transparent rounded-full opacity-70 animate-pulse"></div>
+                  <div className="w-2 h-8 bg-gradient-to-t from-gray-300 to-transparent rounded-full opacity-60 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="w-3 h-7 bg-gradient-to-t from-gray-200 to-transparent rounded-full opacity-80 animate-pulse" style={{animationDelay: '1s'}}></div>
+                  <div className="w-2 h-5 bg-gradient-to-t from-gray-300 to-transparent rounded-full opacity-50 animate-pulse" style={{animationDelay: '1.5s'}}></div>
                 </div>
               </div>
             </div>
             
-            {/* Animated spatula */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 origin-bottom animate-spin" style={{animationDuration: '2s'}}>
-              <div className="w-1 h-16 bg-amber-600 rounded-full"></div>
-              <div className="w-6 h-3 bg-amber-700 rounded-full -mt-1"></div>
+            {/* Wooden spoon with stirring animation */}
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 origin-bottom">
+              <div className="animate-spin" style={{animationDuration: '3s'}}>
+                <div className="w-1 h-12 bg-amber-600 rounded-full relative">
+                  <div className="absolute -top-1 -left-1 w-3 h-2 bg-amber-700 rounded-full"></div>
+                </div>
+              </div>
             </div>
+            
+            {/* Floating ingredients */}
+            <div className="absolute -top-4 -left-6 w-2 h-2 bg-green-500 rounded-full animate-bounce opacity-70" style={{animationDelay: '0.2s'}}></div>
+            <div className="absolute -top-2 -right-8 w-1 h-1 bg-red-500 rounded-full animate-bounce opacity-60" style={{animationDelay: '0.8s'}}></div>
+            <div className="absolute -top-6 right-4 w-1 h-1 bg-yellow-500 rounded-full animate-bounce opacity-80" style={{animationDelay: '1.2s'}}></div>
           </div>
           
-          <div className="text-center">
-            <h3 className="text-2xl font-semibold text-green-700 mb-2">Preparing</h3>
-            <p className="text-gray-600">Cooking up your perfect diet plan...</p>
+          <div className="text-center space-y-2">
+            <h3 className="text-3xl font-bold text-green-700">Preparing Your Meal Plan</h3>
+            <p className="text-gray-600 text-lg">Our AI chef is cooking up something special...</p>
           </div>
           
-          <div className="flex space-x-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-bounce"></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
           </div>
         </div>
       </div>
